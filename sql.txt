@@ -1,0 +1,908 @@
+rename [use to change the old table name to new table name]
+rename table product to product_info;
+we cant change database name ;
+
+output:
++------------------+
+| Tables_in_ust_db |
++------------------+
+| product_info     |
++------------------+
+
+-------------------------------------------------------
+
+#########################DML (data manpulation language)#######################
+
+----->[insert]
+ 1.syntax : insert into table_name(column_name1 ,column_name2)
+           values(value1,value2....)
+
+2.insert into product_info values(2,'mango',4);
+ 
+3. insert into selcted column
+   insert into product_info(pid,pname) values(3,'pen');
+   +------+--------+----------+
+   | pid  | pname  | quantity |
+   +------+--------+----------+
+   |    1 | patato |        5 |
+   |    2 | mango  |        4 |
+   |    3 | pen    |     NULL |
+   +------+--------+----------+
+
+4.mult values at one time
+insert into product_info(pid,pname,quantity) value(4,'pencil',6),
+    ->  (5,'Mobile',2);
+
+
+ insert into product info(pid,pname,quantity) values(value1,value2),
+                           values(value1,value2);
+
+
+---->[select]
+ syntax : select *from product_info;
+ it will discribe data which we add in table
+
+-----------------------------------------------------
+----->[update]
+ update table_name set column_name=value;
+ update pro
+         
+ update product_info set quantity=100;
+ mysql> select *from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | patato |      100 |
+|    2 | mango  |      100 |
+|    3 | pen    |      100 |
+|    4 | pencil |      100 |
+|    5 | Mobile |      100 |
++------+--------+----------+
+
+-------------------------------------------------------
+[delete]
+
+delete from product_info;
+
+
+mysql> select *from product_info;
+Empty set (0.00 sec)
+
+
+
+######################## Data query language  #############
+
+
+
+the sql statement used to retrive the data from database is know as dql
+only one select command present in dql
+
+the help of select we can perform retrieval from the table in the three 
+projection 
+selection
+joins
+
+ select pid from product_info;
+
++------+
+| pid  |
++------+
+|    4 |
+|    5 |
+|    2 |
+|    1 |
++------+
+  
+ -----------------------------------------------------
+[Distinct]
+
+1. select distinct desgination from employee;
++--------------------+
+| desgination        |
++--------------------+
+| software_developer |
+| software_testing   |
+| HR                 |
+| clerk              |
+| Marketing          |
++--------------------+
+
+
+2. select distinct deptno,desgination from employee;
++--------+--------------------+
+| deptno | desgination        |
++--------+--------------------+
+|     10 | software_developer |
+|     20 | software_testing   |
+|     30 | HR                 |
+|     30 | clerk              |
+|     40 | clerk              |
+|     40 | Marketing          |
++--------+--------------------+
+
+
+--------------------------------------------------------
+[Alias]
+ temporary name to col and table is given by alias keyword
+
+syntex 
+SELECT 	column_name AS alias FROM Table_name;
+
+1  Select bloodgroup as bldgrp from employee;
++--------+
+| bldgrp |
++--------+
+| o+ve   |
+| o      |
+| Ab     |
+| Ab     |
+| B+ve   |
+| A      |
+| A      |
+| B+ve   |
+| A      |
+| B      |
++--------+
+
+2 Select desgination deptname from employee;
++--------------------+
+| deptname           |
++--------------------+
+| software_developer |
+| software_developer |
+| software_developer |
+| software_testing   |
+| software_testing   |
+| HR                 |
+| clerk              |
+| clerk              |
+| HR                 |
+| Marketing          |
++--------------------+
+
+-----------------------------------------------------------------------------------
+
+[Where clause]
+the WHERE clause is used to filter records
+ 
+syntex
+SELECT *from table_name where condition;
+
+ex 
+ select*from employee where eid =1;
+
+
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+| eid | name  | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email         | gender | desgination        |
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+|   1 | Amrit | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com | male   | software_developer |
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+
+
+
+[update]
+ update employee set mobile=8603735 where eid =2;
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |
+|   5 | shivani | 77788888 | 1998-10-14 |   19 | 2007-06-01 | B+ve       |     20 | 2300000 | ashiv@gmail.com  | female | software_testing   |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+2 delete from employee where eid =5;
+
+
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+
+
+select * from employee
+    -> where eid =10;
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+-------------+
+| eid | name  | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email         | gender | desgination |
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+-------------+
+|  10 | sweta | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 | 205580 | swr@gmail.com | female | Marketing   |
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+-------------+
+
+----------------------------------------------------------------------------------
+
+[operator]
+
+
+1 write a query to display salary of emp increment by 5000
+
+ select salary , salary+5000
+    -> as bonus from employee;
++---------+---------+
+| salary  | bonus   |
++---------+---------+
+|   20000 |   25000 |
+|  300000 |  305000 |
+|  400000 |  405000 |
+|  200000 |  205000 |
+|  200040 |  205040 |
+|  200780 |  205780 |
+| 2600000 | 2605000 |
+|  200780 |  205780 |
+|  205580 |  210580 |
++---------+---------+
+
+
+2 select salary , salary-5000
+   -> as decrement from employee;
++---------+-----------+
+| salary  | decrement |
++---------+-----------+
+|   20000 |     15000 |
+|  300000 |    295000 |
+|  400000 |    395000 |
+|  200000 |    195000 |
+|  200040 |    195040 |
+|  200780 |    195780 |
+| 2600000 |   2595000 |
+|  200780 |    195780 |
+|  205580 |    200580 |
++---------+-----------+
+
+
+2 to display the anual salary
+
+   select salary , salary*12
+    -> as packeage from employee;
++---------+----------+
+| salary  | packeage |
++---------+----------+
+|   20000 |   240000 |
+|  300000 |  3600000 |
+|  400000 |  4800000 |
+|  200000 |  2400000 |
+|  200040 |  2400480 |
+|  200780 |  2409360 |
+| 2600000 | 31200000 |
+|  200780 |  2409360 |
+|  205580 |  2466960 |
++---------+----------+
+
+
+3 to display per day 
+
+ select salary , (salary*12)/365
+    -> as perday from employee;
++---------+------------+
+| salary  | perday     |
++---------+------------+
+|   20000 |   657.5342 |
+|  300000 |  9863.0137 |
+|  400000 | 13150.6849 |
+|  200000 |  6575.3425 |
+|  200040 |  6576.6575 |
+|  200780 |  6600.9863 |
+| 2600000 | 85479.4521 |
+|  200780 |  6600.9863 |
+|  205580 |  6758.7945 |
++---------+------------+
+
+
+4) waq to display result from emp table whose desgination is software developer
+
+ select *from employee where desgination ='software_developer';
++-----+-------+----------+------------+------+------------+------------+--------+--------+----------------+--------+--------------------+
+| eid | name  | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email          | gender | desgination        |
++-----+-------+----------+------------+------+------------+------------+--------+--------+----------------+--------+--------------------+
+|   1 | Amrit | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com  | male   | software_developer |
+|   2 | Arun  |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 | 300000 | aru@gmail.com  | male   | software_developer |
+|   3 | Anku  |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 | 400000 | anku@gmail.com | male   | software_developer |
++-----+-------+----------+------------+------+------------+------------+--------+--------+----------------+--------+--------------------+
+
+
+5) waq to display all  the record of emp excluding 20;
+select *from employee where deptno <>20;
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+6 waq to display salary is more then 20k
+ select *from employee where salary>20000;
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+7 waq to display age is less then 25;
+
+select *from employee where age<25;
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name   | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit  | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun   |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku   |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   6 | puja   |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   8 | shivam |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+8 waq to display name salary email mobno whoes age is 28 or < then 30
+
+ select name , salary,mobile ,age from employee where age>=25;
++---------+--------+----------+------+
+| name    | salary | mobile   | age  |
++---------+--------+----------+------+
+| Ankita  | 200000 |   666666 |   25 |
+| Arti    | 200780 | 66646646 |   25 |
+| Arkriti | 200780 | 66046646 |   25 |
+| sweta   | 205580 | 66346646 |   25 |
++---------+--------+----------+------+
+
+
+
+
+
+9 waq to display who salary is less then or equal to 20k
+ 
+select * from employee where salary <=20000;
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+| eid | name  | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email         | gender | desgination        |
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+|   1 | Amrit | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com | male   | software_developer |
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+
+
+
+
+----------------------- logical operator ---------------------------------------
+
+
+######################## 14/oct/2019 ####################
+1 wrq to display all the emp details who is working in dept no 20 and as well as salary is grater then 25k
+
+ select *from employee where deptno = 20 and salary > 19000;
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+| eid | name   | mobile | dob        | age  | doj        | bloodgroup | deptno | salary | email            | gender | desgination      |
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+|   4 | Ankita | 666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 | 200000 | ankita@gmail.com | female | software_testing |
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+
+
+2. waq to display 
+
+
+ select *from employee where deptno = 10 or deptno = 20 ;
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+| eid | name   | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email            | gender | desgination        |
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+|   1 | Amrit  | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun   |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 | 300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku   |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 | 400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 | 200000 | ankita@gmail.com | female | software_testing   |
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+
+
+3 waq to display emp detail whoes job designation is testing and age is 25;
+
+select *from employee where desgination = 'software_testing ' and age = 25;
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+| eid | name   | mobile | dob        | age  | doj        | bloodgroup | deptno | salary | email            | gender | desgination      |
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+|   4 | Ankita | 666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 | 200000 | ankita@gmail.com | female | software_testing |
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+
+
+
+4 display all record of emp who is working as a tester and having salary 40k
+select *from employee where desgination = 'software_testing ' and salary < 40;
+
+
+5 display name salary age from emp table who is working in dept no 10 ,40 ,50
+
+select name,salary,age from employee where deptno = 10 or deptno = 40 or deptno =50;
++--------+---------+------+
+| name   | salary  | age  |
++--------+---------+------+
+| Amrit  |   20000 |   22 |
+| Arun   |  300000 |   21 |
+| Anku   |  400000 |   24 |
+| shivam | 2600000 |   20 |
+| sweta  |  205580 |   25 |
++--------+---------+------+
+
+
+
+
+7 display deltails of emp whoes age is more 25 and bloodgroup is b+ve
+ 
+select *from employee where age > 19 and bloodgroup ='B+ve';
++-----+--------+--------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+| eid | name   | mobile | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination |
++-----+--------+--------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+|   8 | shivam | 776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk       |
++-----+--------+--------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+
+
+8 waq to display all the recccord of emp excluding testing
+
+select *from employee where not  desgination = 'software_testing ';
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+ select *from employee where   desgination <>'software_testing ';
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+9 waq to display name of all the emp who is working as a hr or tester and salary is >40k
+
+ select * from employee where ( desgination = 'hr' or desgination = 'software_testing') and  salary >40000;
++-----+---------+----------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email            | gender | desgination      |
++-----+---------+----------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 | 200000 | ankita@gmail.com | female | software_testing |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 | 200040 | pujaa@gmail.com  | female | HR               |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 | 200780 | Arkri@gmail.com  | female | HR               |
++-----+---------+----------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+
+
+10 waq to display all the emp excluding software developer who are working in deptno 40;
+
+
+
+
+
+11 waq to display all the software devp who are working for dept no 10 , 40
+
+ select * from employee where desgination = 'software_developer' And( deptno =10 or deptno = 40);
++-----+-------+----------+------------+------+------------+------------+--------+--------+----------------+--------+--------------------+
+| eid | name  | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email          | gender | desgination        |
++-----+-------+----------+------------+------+------------+------------+--------+--------+----------------+--------+--------------------+
+|   1 | Amrit | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com  | male   | software_developer |
+|   2 | Arun  |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 | 300000 | aru@gmail.com  | male   | software_developer |
+|   3 | Anku  |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 | 400000 | anku@gmail.com | male   | software_developer |
++-----+-------+----------+------------+------+------------+------------+--------+--------+----------------+--------+--------------------+
+
+######################### special operator   ######################
+
+1 waq to display all the details of emp who is working in dept(40,50,70)
+
+ select * from employee where deptno in(40,50,70);
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+| eid | name   | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination |
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+|   8 | shivam |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk       |
+|  10 | sweta  | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing   |
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+
+2 waq to display name of all the emp who is working as hr ,admin
+
+select * from employee where desgination  in('HR','Admin');
++-----+---------+----------+------------+------+------------+------------+--------+--------+-----------------+--------+-------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email           | gender | desgination |
++-----+---------+----------+------------+------+------------+------------+--------+--------+-----------------+--------+-------------+
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 | 200040 | pujaa@gmail.com | female | HR          |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 | 200780 | Arkri@gmail.com | female | HR          |
++-----+---------+----------+------------+------+------------+------------+--------+--------+-----------------+--------+-------------+
+
+3 waq to display deltails of tester admin softwere devp who are working in dept no 20 or 30 and salary is > 40k;
+
+select * from employee where desgination  in('software_testing','software_developer','admin') And deptno in(20,30);
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+| eid | name   | mobile | dob        | age  | doj        | bloodgroup | deptno | salary | email            | gender | desgination      |
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+|   4 | Ankita | 666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 | 200000 | ankita@gmail.com | female | software_testing |
++-----+--------+--------+------------+------+------------+------------+--------+--------+------------------+--------+------------------+
+
+
+################### NotIn ###################################################### 
+
+1 waq to display all the record of emp excluding who is working as a tester , hr, admin ;
+
+select * from employee where desgination Not in('hr','software_testing');
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name   | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit  | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun   |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku   |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   7 | Arti   | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|  10 | sweta  | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+--------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+2 waq to display all the record of employee whoes age is 20 50 30 40 exclude tester , devpl;
+
+select * from employee where age in(20,25,30,20)and desgination  Not in('software_developer','software_testing');
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk       |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk       |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR          |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing   |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+-------------+
+
+
+
+########################################## between #########################
+1 waq to display all the deltails of emp whose age btweent 20 to 40;
+
+select * from employee where age BETWEEN 20 and 40;
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+
+2  waq to display all the details of emp who is hired during 2017;
+ select * from employee where dob BETWEEN '2017/01/01' and '2017/12/31' ;
+Empty set (0.00 sec)
+
+############################### not between ############################
+
+1 waq to display all the record of emp excluding whos salary is 25k to 30k;
+ select * from employee where salary not BETWEEN 25000 and 30000 ;
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+
+
+========================================== IS ===================================
+
+select *from employee where deptno Is null;
+
+===================================== like==========================================
+1. waq to display employee whoese name start with A;
+
+ select *from employee where name like 'a%';
++-----+---------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 | 300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 | 400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 | 200000 | ankita@gmail.com | female | software_testing   |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 | 200780 | Arti@gmail.com   | female | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 | 200780 | Arkri@gmail.com  | female | HR                 |
++-----+---------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+
+2 waq to display whoes second char is i
+
+select *from employee where name like '_i%';
+Empty set (0.00 sec)
+
+
+mysql> select *from employee where name like '_r%';
++-----+---------+----------+------------+------+------------+------------+--------+--------+-----------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email           | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+--------+-----------------+--------+--------------------+
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 | 300000 | aru@gmail.com   | male   | software_developer |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 | 200780 | Arti@gmail.com  | female | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 | 200780 | Arkri@gmail.com | female | HR                 |
++-----+---------+----------+------------+------+------------+------------+--------+--------+-----------------+--------+--------------------+
+
+3 waq to display the name of emp which has atlest ll in their name;
+  
+select *from employee where name like '%l%l%';
+Empty set (0.00 sec)
+
+4 waq display the name of emp whose name start with s and ends with p;
+select *from employee where name like 's%p';
+Empty set (0.00 sec)
+
+5 waq to display all the record of emp if the emp name begins with a or s;
+
+select *from employee where name like 'a%'or name like's%';
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+6 waq to display emp name salary who is working in deptno 10 20 30 and anul salary and job degi start with s;
+
+ select *from employee where deptno In(10,20,40) and desgination like 's%' ;
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+| eid | name   | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email            | gender | desgination        |
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+|   1 | Amrit  | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun   |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 | 300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku   |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 | 400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 | 200000 | ankita@gmail.com | female | software_testing   |
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+
+
+
+============================== function ================================
+
+1 select sum(salary)from employee;
++-------------+
+| sum(salary) |
++-------------+
+|     4327180 |
++-------------+
+-------------------------------------------------------
+2 select count(*)from employee;
++----------+
+| count(*) |
++----------+
+|        9 |
++----------+
+------------------------------------------------------
+
+3 select max(salary)from employee;
++-------------+
+| max(salary) |
++-------------+
+|     2600000 |
++-------------+
+-------------------------------------------------------
+4 select min(salary)from employee;
++-------------+
+| min(salary) |
++-------------+
+|       20000 |
++-------------+
+-------------------------------------------------------
+
+5 select avg(salary)from employee;
++-------------+
+| avg(salary) |
++-------------+
+| 480797.7778 |
++-------------+
+--------------------------------------------------------
+
+########################### order #########################
+1 waq to display all the result of emp and salary should be in accending order;
+
+select * from employee  order by salary desc;
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+|   8 | shivam  |   776888 | 1997-10-14 |   20 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |
+|   1 | Amrit   | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+
+
+
+##################################### Sub query ########################################
+
+///////////////// single row /////////////////////////
+
+1 waq to display all the record of emp whose doj is same as ankit ;
+
+select *from  employee where doj =(select doj from employee where name ='Amrit');
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+| eid | name  | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email         | gender | desgination        |
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+|   1 | Amrit | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com | male   | software_developer |
++-----+-------+----------+------------+------+------------+------------+--------+--------+---------------+--------+--------------------+
+
+
+2 waq to display scecond max salary
+
+ select max(salary) from  employee where salary < (select max(salary)from employee);
++-------------+
+| max(salary) |
++-------------+
+|      400000 |
++-------------+
+
+
+
+
+////////////////////////////// mult row/////////////////////////
+1 waq to display name of the emp who is working in location which has at least one 'a' in the location;
+
+select name from employee where deptno in (select deptno from dept where loc like '%a%');
++--------+
+| name   |
++--------+
+| Ankita |
+| shivam |
+| sweta  |
++--------+
+
+
+
+2 waq to display all the record of emp who is working in admin , operator ,developer;
+
+ select * from employee where deptno in  (select deptno from dept where deptname in ('admin','develope','operation' ));
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+| eid | name   | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary | email            | gender | desgination        |
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+|   1 | Amrit  | 99999999 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |  20000 | amr@gmail.com    | male   | software_developer |
+|   2 | Arun   |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 | 300000 | aru@gmail.com    | male   | software_developer |
+|   3 | Anku   |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 | 400000 | anku@gmail.com   | male   | software_developer |
+|   4 | Ankita |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 | 200000 | ankita@gmail.com | female | software_testing   |
++-----+--------+----------+------------+------+------------+------------+--------+--------+------------------+--------+--------------------+
+
+
+
+
+
+
+
+////////////////////// group by////////////////////////////////
+ 
+1 waq to display max salary of each dept ;
+
+ select max(salary)from  employee group by deptno;
++-------------+
+| max(salary) |
++-------------+
+|      400000 |
+|      200000 |
+|      200780 |
+|     2600000 |
++-------------+
+
+2 waq to display the highest salary given to hr for each dept
+
+     select max(salary)from employee
+    -> where desgination  ='hr'
+    -> group by deptno ;
++-------------+
+| max(salary) |
++-------------+
+|      200780 |
++-------------+
+
+//////////////////////////// having ////////////////////////
+
+1 waq to display to display deptno which has atleast 2 emp in it;
+select deptno from employee
+    -> group by deptno
+    -> having count(*)>=2;
++--------+
+| deptno |
++--------+
+|     10 |
+|     30 |
+|     40 |
++--------+
+
+
+############################# Joins #########################
+
+2 ///////////////// inner join //////////////////////////////
+
+ select *from employee e inner join  dept d on e.deptno=d.deptno;
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+---------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        | deptno | deptname    | loc     |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+---------+
+|   1 | Amrit   |  8603738 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |     10 | admin       | pune    |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |     10 | admin       | pune    |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |     10 | admin       | pune    |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |     20 | operation   | Mumbai  |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |     30 | maintance   | Delhi   |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |     30 | maintance   | Delhi   |
+|   8 | shivam  |   776888 | 1997-10-14 |   18 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |     40 | development | chennai |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |     30 | maintance   | Delhi   |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |     40 | development | chennai |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+---------+
+
+
+3//////////////////////////////////////////////////
+
+mysql> select *from employee e left outer join dept d on e.deptno=d.deptno;
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+---------+
+| eid | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        | deptno | deptname    | loc     |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+---------+
+|   1 | Amrit   |  8603738 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |     10 | admin       | pune    |
+|   2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |     10 | admin       | pune    |
+|   3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |     10 | admin       | pune    |
+|   4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |     20 | operation   | Mumbai  |
+|   6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |     30 | maintance   | Delhi   |
+|   7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |     30 | maintance   | Delhi   |
+|   8 | shivam  |   776888 | 1997-10-14 |   18 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |     40 | development | chennai |
+|   9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |     30 | maintance   | Delhi   |
+|  10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |     40 | development | chennai |
++-----+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+---------+
+
+//////////////////////////////////////////////////
+ select *from employee e right outer join dept d on e.deptno=d.deptno;
++------+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+-----------+
+| eid  | name    | mobile   | dob        | age  | doj        | bloodgroup | deptno | salary  | email            | gender | desgination        | deptno | deptname    | loc       |
++------+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+-----------+
+|    1 | Amrit   |  8603738 | 1997-10-14 |   22 | 2000-06-01 | o+ve       |     10 |   20000 | amr@gmail.com    | male   | software_developer |     10 | admin       | pune      |
+|    2 | Arun    |  8603735 | 1996-10-14 |   21 | 2001-06-01 | o          |     10 |  300000 | aru@gmail.com    | male   | software_developer |     10 | admin       | pune      |
+|    3 | Anku    |  7777777 | 1994-10-14 |   24 | 2003-06-01 | Ab         |     10 |  400000 | anku@gmail.com   | male   | software_developer |     10 | admin       | pune      |
+|    4 | Ankita  |   666666 | 1993-10-14 |   25 | 2004-06-01 | Ab         |     20 |  200000 | ankita@gmail.com | female | software_testing   |     20 | operation   | Mumbai    |
+|    6 | puja    |  6664666 | 1995-10-14 |   23 | 2004-06-01 | A          |     30 |  200040 | pujaa@gmail.com  | female | HR                 |     30 | maintance   | Delhi     |
+|    7 | Arti    | 66646646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arti@gmail.com   | female | clerk              |     30 | maintance   | Delhi     |
+|    8 | shivam  |   776888 | 1997-10-14 |   18 | 2009-06-01 | B+ve       |     40 | 2600000 | shivam@gmail.com | male   | clerk              |     40 | development | chennai   |
+|    9 | Arkriti | 66046646 | 1995-10-14 |   25 | 2019-06-01 | A          |     30 |  200780 | Arkri@gmail.com  | female | HR                 |     30 | maintance   | Delhi     |
+|   10 | sweta   | 66346646 | 1995-10-14 |   25 | 2019-06-01 | B          |     40 |  205580 | swr@gmail.com    | female | Marketing          |     40 | development | chennai   |
+| NULL | NULL    |     NULL | NULL       | NULL | NULL       | NULL       |   NULL |    NULL | NULL             | NULL   | NULL               |      5 | admin       | bangaloru |
+| NULL | NULL    |     NULL | NULL       | NULL | NULL       | NULL       |   NULL |    NULL | NULL             | NULL   | NULL               |      6 | operation   | pune      |
+| NULL | NULL    |     NULL | NULL       | NULL | NULL       | NULL       |   NULL |    NULL | NULL             | NULL   | NULL               |     70 | development | chennai   |
++------+---------+----------+------------+------+------------+------------+--------+---------+------------------+--------+--------------------+--------+-------------+-----------+
+
+
